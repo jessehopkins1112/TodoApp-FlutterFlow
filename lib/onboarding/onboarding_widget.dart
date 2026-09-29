@@ -34,8 +34,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     super.initState();
     _model = createModel(context, () => OnboardingModel());
 
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.textController1 ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
+
+    _model.textController2 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -231,10 +234,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           Container(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.textController,
-                              focusNode: _model.textFieldFocusNode,
+                              controller: _model.textController1,
+                              focusNode: _model.textFieldFocusNode1,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.textController',
+                                '_model.textController1',
                                 Duration(milliseconds: 2000),
                                 () => safeSetState(() {}),
                               ),
@@ -317,10 +320,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 contentPadding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 26.0, 24.0, 26.0),
                                 suffixIcon:
-                                    _model.textController!.text.isNotEmpty
+                                    _model.textController1!.text.isNotEmpty
                                         ? InkWell(
                                             onTap: () async {
-                                              _model.textController?.clear();
+                                              _model.textController1?.clear();
                                               safeSetState(() {});
                                             },
                                             child: Icon(
@@ -353,7 +356,136 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
-                              validator: _model.textControllerValidator
+                              validator: _model.textController1Validator
+                                  .asValidator(context),
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            child: TextFormField(
+                              controller: _model.textController2,
+                              focusNode: _model.textFieldFocusNode2,
+                              onChanged: (_) => EasyDebounce.debounce(
+                                '_model.textController2',
+                                Duration(milliseconds: 2000),
+                                () => safeSetState(() {}),
+                              ),
+                              autofocus: false,
+                              enabled: true,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                hintText: 'Gender...',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 26.0, 24.0, 26.0),
+                                suffixIcon:
+                                    _model.textController2!.text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () async {
+                                              _model.textController2?.clear();
+                                              safeSetState(() {});
+                                            },
+                                            child: Icon(
+                                              Icons.clear,
+                                              size: 24.0,
+                                            ),
+                                          )
+                                        : null,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                              keyboardType: (FFKeyboardType.name).flutterValue,
+                              cursorColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              enableInteractiveSelection: true,
+                              validator: _model.textController2Validator
                                   .asValidator(context),
                             ),
                           ),
@@ -472,8 +604,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       onPressed: () async {
                         await currentUserReference!
                             .update(createUsersRecordData(
-                          displayName: _model.textController.text,
+                          displayName: _model.textController1.text,
                           birthday: _model.datePicked,
+                          gender: _model.textController2.text,
                         ));
 
                         context.goNamed(TasksWidget.routeName);
